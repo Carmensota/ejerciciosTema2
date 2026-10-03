@@ -46,3 +46,36 @@ print(y_given_x2)
 x_given_y_minus1 <- prop.table(freq_table, margin  =2)[, "-1"]
 
 print(x_given_y_minus1)
+
+
+
+#For calculating the mean of a variable conditioned by other, for example
+#y conditioned by x = 5:
+
+mean_yx5 <- mean(y[x == 5])
+
+
+
+
+
+#c) Are the variables independent? Justify your answer
+#Two variables are independent if and only if their joint frequencies equal the product
+#of their marginal distributions. In base R, you can check this directly by 
+#comparing the observed relative table with the expected independent table using outer()
+
+#Get the global relative joint frequencies
+rel_table <- prop.table(abs_table)
+
+#Get the marginal probabilities for X and Y
+margin_x <- margin.table(rel_table, 1)
+margin_y <- margin.table(rel_table, 2)
+
+#Create the expected distribution table IF they were independent
+expected_independent <- outer(margin_x, margin_y, "*")
+
+print(rel_table)
+print(expected_independent)
+
+#Check if they are completely identical 
+is_independent <- all(abs(rel_table - expected_independent) <1e-9)
+print(paste("Are variables independent?: ", is_independent))
