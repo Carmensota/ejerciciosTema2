@@ -190,3 +190,15 @@ print(paste("Errors predicted for 10 hours: ", round(pred_y, 2)))
 pred_x <- predict(line_x_over_y, newdata = data.frame(y = 13))
 print(paste("Hours predicted for 13 errors: ", round(pred_x, 2)))
 
+
+
+
+
+#Calculate a logarithmic regression model 
+#previously defined x and y (x <- c(...), y <- c(...))
+data <- data.frame(
+  X = x, 
+  Y = y
+)
+log_model <- lm(y~log(x), data = data)
+print(log_model)
